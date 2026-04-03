@@ -32,12 +32,12 @@
                     </div>
                     <div class="d-flex justify-content-between flex-grow-1">
                         <div class="text-center">
-                            <p class="text-muted mb-0 small">.com</p>
+                            <p class="text-muted mb-0 small">.COM</p>
                             <h3 class="fw-bold mb-0">{{ $comCount }}</h3>
                         </div>
                         <div class="vr"></div>
                         <div class="text-center">
-                            <p class="text-muted mb-0 small">.net</p>
+                            <p class="text-muted mb-0 small">.NET</p>
                             <h3 class="fw-bold mb-0">{{ $netCount }}</h3>
                         </div>
                     </div>

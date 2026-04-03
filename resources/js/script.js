@@ -12,3 +12,5 @@
                 row.style.display = text.includes(query) ? '' : 'none';
             });
         });
+
+

@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class PublicController extends Controller
 {
-    public function homepage(){
+    public function homepage()
+    {
         return view('welcome');
     }
     public function dashboard()
@@ -44,25 +45,35 @@ class PublicController extends Controller
     }
 
     public function user($id)
-{
-    $users   = Http::get('https://jsonplaceholder.typicode.com/users')->json();
-    $posts   = Http::get('https://jsonplaceholder.typicode.com/posts')->json();
-    $albums  = Http::get('https://jsonplaceholder.typicode.com/albums')->json();
-    $photos  = Http::get('https://jsonplaceholder.typicode.com/photos')->json();
+    {
+        $users   = Http::get('https://jsonplaceholder.typicode.com/users')->json();
+        $posts   = Http::get('https://jsonplaceholder.typicode.com/posts')->json();
+        $albums  = Http::get('https://jsonplaceholder.typicode.com/albums')->json();
+        $photos  = Http::get('https://jsonplaceholder.typicode.com/photos')->json();
+        $todos = Http::get('https://jsonplaceholder.typicode.com/todos')->json();
 
-    $user = collect($users)->firstWhere('id', (int)$id);
+        $userTodos     = collect($todos)->where('userId', (int)$id);
+        $todosTotal    = $userTodos->count();
+        $todosCompleted = $userTodos->where('completed', true)->count();
+        $todosPending  = $todosTotal - $todosCompleted;
+        $completedPerc = $todosTotal > 0 ? round(($todosCompleted / $todosTotal) * 100) : 0;
+        $user = collect($users)->firstWhere('id', (int)$id);
 
-    $postCount  = collect($posts)->where('userId', (int)$id)->count();
-    $userAlbums = collect($albums)->where('userId', (int)$id);
-    $albumCount = $userAlbums->count();
-    $albumIds   = $userAlbums->pluck('id');
-    $photoCount = collect($photos)->whereIn('albumId', $albumIds)->count();
+        $postCount  = collect($posts)->where('userId', (int)$id)->count();
+        $userAlbums = collect($albums)->where('userId', (int)$id);
+        $albumCount = $userAlbums->count();
+        $albumIds   = $userAlbums->pluck('id');
+        $photoCount = collect($photos)->whereIn('albumId', $albumIds)->count();
 
-    return view('components.user', [
-        'user'       => $user,
-        'postCount'  => $postCount,
-        'albumCount' => $albumCount,
-        'photoCount' => $photoCount,
-    ]);
-}
+        return view('components.user', [
+            'user'       => $user,
+            'postCount'  => $postCount,
+            'albumCount' => $albumCount,
+            'photoCount' => $photoCount,
+            'todosTotal'    => $todosTotal,
+            'todosCompleted' => $todosCompleted,
+            'todosPending'  => $todosPending,
+            'completedPerc' => $completedPerc,
+        ]);
+    }
 }
