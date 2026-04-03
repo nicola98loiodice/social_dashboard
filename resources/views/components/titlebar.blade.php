@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('homepage') }}">
       <img src="{{ asset('images/icons8-pannello-di-controllo-48.png') }}" alt="" width="32" height="32">
       <span>Social_DashBoard</span>
     </a>
