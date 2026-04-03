@@ -22,7 +22,7 @@
             <x-sidebar></x-sidebar>
         </div>
 
-        <main class="flex-grow-1 p-4">
+        <main class="flex-grow-1 p-4" style="min-width: 0;">
             {{ $slot }}
         </main>
 

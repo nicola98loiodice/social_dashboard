@@ -4,47 +4,59 @@
     <p class="text-muted">Social media user management overview</p>
 
     <!-- cards statistiche -->
-    <div class="row g-3 mb-4 "data-aos="fade-up">
+    <div class="row g-3 mb-4 align-items-stretch" data-aos="fade-up">
 
+        {{-- Totale utenti --}}
         <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center gap-3">
+            <div class="card border-0 shadow-sm p-3 h-100">
+                <div class="d-flex align-items-center gap-3 h-100">
                     <div class="bg-primary bg-opacity-10 rounded p-2">
-                        <img src="{{ asset('images/icons8-test-account-48.png') }}" width="36" height="36" alt="">
+                        <img src="{{ asset('images/icons8-test-account-48.png') }}" width="36" height="36"
+                            alt="">
                     </div>
                     <div>
-                        <p class="text-muted mb-0 small">Total Users</p>
-                        <h3 class="fw-bold mb-0">10</h3>
+                        <p class="text-muted mb-0 small">Totale utenti</p>
+                        <h3 class="fw-bold mb-0">{{ $totalUsers }}</h3>
                     </div>
                 </div>
             </div>
         </div>
 
+        {{-- .com vs .net --}}
         <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center gap-3">
+            <div class="card border-0 shadow-sm p-3 h-100">
+                <div class="d-flex align-items-center gap-3 h-100">
                     <div class="bg-success bg-opacity-10 rounded p-2">
-                        <img src="{{ asset('images/icons8-nuovo-messaggio-48.png') }}" width="36" height="36" alt="">
+                        <img src="{{ asset('images/icons8-nuovo-messaggio-48.png') }}" width="36" height="36"
+                            alt="">
                     </div>
-                    <div>
-                        <p class="text-muted mb-0 small">.com Emails</p>
-                        <h3 class="fw-bold mb-0">0</h3>
-                        <span class="text-muted small">vs 1 .net</span>
+                    <div class="d-flex justify-content-between flex-grow-1">
+                        <div class="text-center">
+                            <p class="text-muted mb-0 small">.com</p>
+                            <h3 class="fw-bold mb-0">{{ $comCount }}</h3>
+                        </div>
+                        <div class="vr"></div>
+                        <div class="text-center">
+                            <p class="text-muted mb-0 small">.net</p>
+                            <h3 class="fw-bold mb-0">{{ $netCount }}</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        {{-- Titolo più lungo --}}
         <div class="col-12 col-md-4">
-            <div class="card border-0 shadow-sm p-3">
-                <div class="d-flex align-items-center gap-3">
+            <div class="card border-0 shadow-sm p-3 h-100">
+                <div class="d-flex align-items-center gap-3 h-100">
                     <div class="bg-warning bg-opacity-10 rounded p-2">
-                        <img src="{{ asset('images/icons8-trofeo-48.png') }}" width="28" height="28" alt="">
+                        <img src="{{ asset('images/icons8-trofeo-48.png') }}" width="28" height="28"
+                            alt="">
                     </div>
                     <div>
-                        <p class="text-muted mb-0 small">Longest Post Title</p>
-                        <h3 class="fw-bold mb-0">79 chars</h3>
-                        <span class="text-muted small">Chelsey Dietrich</span>
+                        <p class="text-muted mb-0 small">Post con titolo più lungo </p>
+                        <h3 class="fw-bold mb-0">{{ strlen($longestPost['title']) }} caratteri</h3>
+                        <span class="text-muted small">{{ $longestPostUser['name'] }}</span>
                     </div>
                 </div>
             </div>
@@ -52,9 +64,9 @@
 
     </div>
 
-    <!-- barra cerca -->
+    <!-- cerca -->
     <div class="mb-3">
-        <input type="text" class="form-control" placeholder=" Cerca per nome, email...">
+        <input type="text" id="searchInput" class="form-control" placeholder=" Cerca per nome, città o email...">
     </div>
 
     <!-- Tabella -->
@@ -64,34 +76,39 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Nome ↕</th>
+                        <th>Nome</th>
                         <th>Email</th>
                         <th>Città</th>
                         <th>Azienda</th>
-                        <th>Posts ↕</th>
+                        <th>Posts</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="fw-bold">Chelsey Dietrich</td>
-                        <td class="text-muted">Lucio_Hettinger@annie.ca</td>
-                        <td>Roscoeview</td>
-                        <td>Keebler LLC</td>
-                        <td><span class="badge bg-secondary">10</span></td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-name="Chelsey Dietrich">
-                                🗑 Elimina
-                            </button>
-                        </td>
-                    </tr>
+                <tbody id="tableBody">
+                    {{-- ciclo  --}}
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="fw-bold">{{ $user['name'] }}</td>
+                            <td class="text-muted">{{ $user['email'] }}</td>
+                            <td>{{ $user['address']['city'] }}</td>
+                            <td>{{ $user['company']['name'] }}</td>
+                            <td><span class="badge bg-secondary">{{ $user['post_count'] }}</span></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal" data-name="{{ $user['name'] }}"
+                                    data-id="{{ $user['id'] }}">
+                                     Elimina
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- modale per conf elimina -->
+    <!-- conf elimina -->
     <div class="modal fade" id="deleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -115,13 +132,5 @@
         </div>
     </div>
 
-    <!-- Script modale -->
-    <script>
-        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (e) {
-            const btn = e.relatedTarget;
-            const name = btn.getAttribute('data-name');
-            document.getElementById('deleteUserName').textContent = name;
-        });
-    </script>
 
 </x-layout>
