@@ -42,4 +42,27 @@ class PublicController extends Controller
             'longestPostUser' => $longestPostUser,
         ]);
     }
+
+    public function user($id)
+{
+    $users   = Http::get('https://jsonplaceholder.typicode.com/users')->json();
+    $posts   = Http::get('https://jsonplaceholder.typicode.com/posts')->json();
+    $albums  = Http::get('https://jsonplaceholder.typicode.com/albums')->json();
+    $photos  = Http::get('https://jsonplaceholder.typicode.com/photos')->json();
+
+    $user = collect($users)->firstWhere('id', (int)$id);
+
+    $postCount  = collect($posts)->where('userId', (int)$id)->count();
+    $userAlbums = collect($albums)->where('userId', (int)$id);
+    $albumCount = $userAlbums->count();
+    $albumIds   = $userAlbums->pluck('id');
+    $photoCount = collect($photos)->whereIn('albumId', $albumIds)->count();
+
+    return view('components.user', [
+        'user'       => $user,
+        'postCount'  => $postCount,
+        'albumCount' => $albumCount,
+        'photoCount' => $photoCount,
+    ]);
+}
 }

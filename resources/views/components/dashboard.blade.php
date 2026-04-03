@@ -89,7 +89,11 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td class="fw-bold">{{ $user['name'] }}</td>
+                            <td class="fw-bold">
+                                <a href="{{ route('user', $user['id']) }}" class="text-decoration-none">
+                                    {{ $user['name'] }}
+                                </a>
+                            </td>
                             <td class="text-muted">{{ $user['email'] }}</td>
                             <td>{{ $user['address']['city'] }}</td>
                             <td>{{ $user['company']['name'] }}</td>
@@ -98,7 +102,7 @@
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal" data-name="{{ $user['name'] }}"
                                     data-id="{{ $user['id'] }}">
-                                     Elimina
+                                    Elimina
                                 </button>
                             </td>
                         </tr>
