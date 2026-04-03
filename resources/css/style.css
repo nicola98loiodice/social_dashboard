@@ -1,0 +1,17 @@
+:root{
+    --cel:#73A5CA;
+    --yellow: #FFC81E;
+    --orange: #E87F24;
+    --white:#FEFDDF;
+    
+}
+
+.bg-blu {
+    background-color: var(--cel) ;
+}
+.bg-yellow{
+    background-color: var(--yellow);
+}
+.bg-white{
+    background-color: var(--white);
+}
