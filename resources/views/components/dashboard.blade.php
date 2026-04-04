@@ -70,7 +70,7 @@
     </div>
 
     <!-- Tabella -->
-    <div class="card border-0 shadow-sm" data-aos="fade-up">
+    <div class="card border-0 shadow-sm">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
@@ -100,9 +100,12 @@
                             <td><span class="badge bg-secondary">{{ $user['post_count'] }}</span></td>
                             <td>
                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" data-name="{{ $user['name'] }}"
-                                    data-id="{{ $user['id'] }}">
-                                    Elimina
+                                    data-bs-target="#deleteModal" data-id="{{ $user['id'] }}"
+                                    data-name="{{ $user['name'] }}" data-email="{{ $user['email'] }}"
+                                    data-city="{{ $user['address']['city'] }}"
+                                    data-company="{{ $user['company']['name'] }}"
+                                    data-post-count="{{ $user['post_count'] }}">
+                                    🗑 Elimina
                                 </button>
                             </td>
                         </tr>
@@ -126,11 +129,7 @@
                 </div>
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                    <form id="deleteForm" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Elimina</button>
-                    </form>
+                    <button type="button" id="confirmDelete" class="btn btn-danger">Elimina</button>
                 </div>
             </div>
         </div>

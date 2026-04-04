@@ -5,9 +5,9 @@
         <span>Dashboard</span>
     </a>
     <hr>
-    <a class="text-decoration-none d-flex align-items-center gap-2 py-2" href="">
+    <a class="text-decoration-none d-flex align-items-center gap-2 py-2" href="{{ route('deleted.users') }}">
         <img src="{{ asset('images/icons8-checklist-48.png') }}" alt="" width="36" height="36">
-        <span>Delete Log</span>
+        <span>Utenti eliminati</span>
     </a>
     <hr>
     <a class="text-decoration-none d-flex align-items-center gap-2 py-2" href="">

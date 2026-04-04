@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use App\Models\DeletedUser;
+
 
 class PublicController extends Controller
 {
@@ -95,4 +97,35 @@ class PublicController extends Controller
             'completedPerc'  => $completedPerc,
         ]);
     }
+
+
+
+    // funzione utenti elimn
+public function deleteUser(Request $request, $id)
+{
+    DeletedUser::updateOrCreate(
+        ['user_id' => $id],
+        [
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'city'       => $request->city,
+            'company'    => $request->company,
+            'post_count' => $request->post_count,
+        ]
+    );
+
+    return response()->json(['success' => true]);
+}
+
+public function restoreUser($id)
+{
+    DeletedUser::where('user_id', $id)->delete();
+    return redirect()->route('dashboard');
+}
+
+public function deletedUsers()
+{
+    $deletedUsers = DeletedUser::orderBy('created_at', 'desc')->get();
+    return view('components.deleted-users', compact('deletedUsers'));
+}
 }
