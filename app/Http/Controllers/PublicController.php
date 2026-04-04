@@ -10,8 +10,8 @@ use App\Models\DeletedUser;
 
 class PublicController extends Controller
 {
- 
-      public function homepage()
+
+    public function homepage()
     {
         return view('welcome');
     }
@@ -44,12 +44,17 @@ class PublicController extends Controller
         $data  = $this->fetchAllData();
         $posts = collect($data['posts']);
 
+        // recupera gli id degli utenti eliminati dal DB
+        $deletedIds = \App\Models\DeletedUser::pluck('user_id')->toArray();
+
         $postCounts = $posts->groupBy('userId')->map->count();
 
-        $users = collect($data['users'])->map(function ($user) use ($postCounts) {
-            $user['post_count'] = $postCounts->get($user['id'], 0);
-            return $user;
-        });
+        $users = collect($data['users'])
+            ->filter(fn($u) => !in_array($u['id'], $deletedIds)) // ← filtra eliminati
+            ->map(function ($user) use ($postCounts) {
+                $user['post_count'] = $postCounts->get($user['id'], 0);
+                return $user;
+            });
 
         $comCount = $users->filter(fn($u) => str_ends_with($u['email'], '.com'))->count();
         $netCount = $users->filter(fn($u) => str_ends_with($u['email'], '.net'))->count();
@@ -100,32 +105,32 @@ class PublicController extends Controller
 
 
 
-    // funzione utenti elimn
-public function deleteUser(Request $request, $id)
-{
-    DeletedUser::updateOrCreate(
-        ['user_id' => $id],
-        [
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'city'       => $request->city,
-            'company'    => $request->company,
-            'post_count' => $request->post_count,
-        ]
-    );
+    // funzioni utenti elimn e ripr
+    public function deleteUser(Request $request, $id)
+    {
+        DeletedUser::updateOrCreate(
+            ['user_id' => $id],
+            [
+                'name'       => $request->name,
+                'email'      => $request->email,
+                'city'       => $request->city,
+                'company'    => $request->company,
+                'post_count' => $request->post_count,
+            ]
+        );
 
-    return response()->json(['success' => true]);
-}
+        return response()->json(['success' => true]);
+    }
 
-public function restoreUser($id)
-{
-    DeletedUser::where('user_id', $id)->delete();
-    return redirect()->route('dashboard');
-}
+    public function restoreUser($id)
+    {
+        DeletedUser::where('user_id', $id)->delete();
+        return redirect()->route('dashboard');
+    }
 
-public function deletedUsers()
-{
-    $deletedUsers = DeletedUser::orderBy('created_at', 'desc')->get();
-    return view('components.deleted-users', compact('deletedUsers'));
-}
+    public function deletedUsers()
+    {
+        $deletedUsers = DeletedUser::orderBy('created_at', 'desc')->get();
+        return view('components.deleted-users', compact('deletedUsers'));
+    }
 }
