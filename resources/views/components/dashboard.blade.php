@@ -65,12 +65,12 @@
     </div>
 
     <!-- cerca -->
-    <div class="mb-3">
+    <div class="mb-3" data-aos="fade-up">
         <input type="text" id="searchInput" class="form-control" placeholder=" Cerca per nome, città o email...">
     </div>
 
     <!-- Tabella -->
-    <div class="card border-0 shadow-sm">
+    <div class="card border-0 shadow-sm" data-aos="fade-up">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">

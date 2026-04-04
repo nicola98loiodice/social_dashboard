@@ -42,8 +42,12 @@
     <div class="row g-3">
 
         <div class="col-12 col-md-6">
-            <div class="card border-0 shadow-sm p-4 h-100">
-                <h5 class="fw-bold mb-3">Informazioni personali</h5>
+            <div class="card border-0 shadow-sm p-4 h-100 ">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <img src="{{ asset('images/icons8-test-account-48.png') }}" width="48" height="48"
+                        alt="">
+                    <h5 class="fw-bold mb-0">Informazioni personali</h5>
+                </div>
                 <ul class="list-unstyled mb-0">
                     <li class="mb-2"><span class="text-muted">Username:</span>
                         <strong>{{ $user['username'] }}</strong>
@@ -59,7 +63,10 @@
 
         <div class="col-12 col-md-6">
             <div class="card border-0 shadow-sm p-4 h-100">
-                <h5 class="fw-bold mb-3">Indirizzo</h5>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                <img src="{{ asset('images/icons8-casa-48.png') }}" width="48" height="48"alt="">
+                <h5 class="fw-bold mb-0">Indirizzo</h5>
+                </div>
                 <ul class="list-unstyled mb-0">
                     <li class="mb-2"><span class="text-muted">Via:</span> <strong>{{ $user['address']['street'] }},
                             {{ $user['address']['suite'] }}</strong></li>
@@ -73,9 +80,12 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 col-md-6">
             <div class="card border-0 shadow-sm p-4">
-                <h5 class="fw-bold mb-3">Azienda</h5>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                <img src="{{ asset('images/icons8-ordinator-48.png') }}" width="48" height="48"alt="">
+                <h5 class="fw-bold mb-0">Azienda</h5>
+                </div>
                 <ul class="list-unstyled mb-0">
                     <li class="mb-2"><span class="text-muted">Nome:</span>
                         <strong>{{ $user['company']['name'] }}</strong>
@@ -91,28 +101,28 @@
         </div>
 
         {{-- statistiche task con torta --}}
-    <div class="col-12 col-md-6 ">
-        <div class="card border-0 shadow-sm p-4">
-            <h5 class="fw-bold mb-3 text-center">Stato Task</h5>
+        <div class="col-12 col-md-6 ">
+            <div class="card border-0 shadow-sm p-4">
+                <h5 class="fw-bold mb-3 text-center">Stato Task</h5>
 
-            <div class="d-flex justify-content-center">
-                <div class="torta" style="--p: {{ $completedPerc }}%;">
-                    <span class="fw-bold h4 m-0">{{ $completedPerc }}%</span>
+                <div class="d-flex justify-content-center">
+                    <div class="torta" style="--p: {{ $completedPerc }}%;">
+                        <span class="fw-bold h4 m-0">{{ $completedPerc }}%</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="d-flex justify-content-around mt-4">
-                <div class="text-center">
-                    <span class="d-block fw-bold text-success">{{ $todosCompleted }}</span>
-                    <span class="text-muted small">Completati</span>
-                </div>
-                <div class="text-center">
-                    <span class="d-block fw-bold text-danger">{{ $todosPending }}</span>
-                    <span class="text-muted small">In sospeso</span>
+                <div class="d-flex justify-content-around mt-4">
+                    <div class="text-center">
+                        <span class="d-block fw-bold text-success">{{ $todosCompleted }}</span>
+                        <span class="text-muted small">Completati</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="d-block fw-bold text-danger">{{ $todosPending }}</span>
+                        <span class="text-muted small">In sospeso</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     {{-- statistiche task --}}
