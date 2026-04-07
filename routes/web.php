@@ -14,3 +14,8 @@ Route::get('/user/{id}', [PublicController::class, 'user'])->name('user');
 Route::post('/user/{id}/delete', [PublicController::class, 'deleteUser'])->name('user.delete');
 Route::post('/user/{id}/restore', [PublicController::class, 'restoreUser'])->name('user.restore');
 Route::get('/deleted-users', [PublicController::class, 'deletedUsers'])->name('deleted.users');
+
+
+//rotte lingua
+Route::get('/settings', [PublicController::class, 'settings'])->name('settings');
+Route::post('/settings/language', [PublicController::class, 'setLanguage'])->name('settings.language');

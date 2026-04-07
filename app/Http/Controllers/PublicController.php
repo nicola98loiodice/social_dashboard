@@ -133,4 +133,20 @@ class PublicController extends Controller
         $deletedUsers = DeletedUser::orderBy('created_at', 'desc')->get();
         return view('components.deleted-users', compact('deletedUsers'));
     }
+
+
+
+
+    //funzioni lingua
+    public function settings()
+    {
+        return view('components.settings');
+    }
+
+    public function setLanguage(Request $request)
+    {
+        $lang = $request->language === 'en' ? 'en' : 'it';
+        session(['locale' => $lang]);
+        return redirect()->back()->with('success', true);
+    }
 }

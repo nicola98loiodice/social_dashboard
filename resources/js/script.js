@@ -40,3 +40,22 @@ document.getElementById('confirmDelete').onclick = function () {
     .catch(error => console.error('Errore:', error));
 };
 });
+
+
+// contatore per card dashboard
+document.querySelectorAll('.count-up').forEach(el => {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 10000; //ms
+    const step = Math.ceil(target / (duration / 16)); // 
+
+    let current = 0;
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+        } else {
+            el.textContent = current;
+        }
+    }, 16);
+});

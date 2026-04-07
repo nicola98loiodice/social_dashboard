@@ -1,22 +1,22 @@
 <x-layout>
-    <h2 class="fw-bold">Utenti Eliminati</h2>
-    <p class="text-muted">Lista degli utenti rimossi dalla dashboard</p>
+    <h2 class="fw-bold">{{ __('deleted_users') }}</h2>
+    <p class="text-muted">{{ __('deleted_users_subtitle') }}</p>
 
     @if($deletedUsers->isEmpty())
-        <div class="alert alert-info">Nessun utente eliminato.</div>
+        <div class="alert alert-info">{{ __('no_deleted_users') }}</div>
     @else
     <div class="card border-0 shadow-sm">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Città</th>
-                        <th>Azienda</th>
-                        <th>Post</th>
-                        <th>Eliminato il</th>
-                        <th>Azioni</th>
+                        <th>{{ __('name') }}</th>
+                        <th>{{ __('email') }}</th>
+                        <th>{{ __('city') }}</th>
+                        <th>{{ __('company') }}</th>
+                        <th>{{ __('posts') }}</th>
+                        <th>{{ __('deleted_at') }}</th>
+                        <th>{{ __('actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                         <td>
                             <form action="{{ route('user.restore', $user->user_id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-success btn-sm">↩ Ripristina</button>
+                                <button type="submit" class="btn btn-success btn-sm"> {{ __('restore') }}</button>
                             </form>
                         </td>
                     </tr>
