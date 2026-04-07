@@ -8,7 +8,7 @@
 
     <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('homepage') }}">
       <img src="{{ asset('images/icons8-pannello-di-controllo-48.png') }}" alt="" width="48" height="48">
-      <span>Social_DashBoard</span>
+      <span>FeedFlow</span>
     </a>
 
   </div>
