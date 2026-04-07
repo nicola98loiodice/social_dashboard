@@ -1,82 +1,86 @@
-# FeedFlow
+# FeedFlow — Social Media Dashboard
+FeedFlow è un'applicazione web sviluppata con Laravel che consente di gestire, analizzare e visualizzare dati provenienti da piattaforme social all'interno di una dashboard centralizzata.
+## Features
+* Dashboard per la visualizzazione dei dati
+* Gestione dei contenuti social
+* Analisi delle performance
+* Sistema di autenticazione utenti
+* Architettura MVC basata su Laravel
+## Tech Stack
 
-Un'applicazione web per la gestione e visualizzazione di dati social, costruita con **Laravel 13** e **Vite**.
-## Requisiti
-Sistema:
-- **PHP** >= 8.3  
-- **Composer**  
-- **Node.js**  
-- **npm**  
-- **MySql**  
-
-## Installazione e avvio da VSCode
-
-### 1. Clona la repository
-### 2. Installa le dipendenze PHP
-
+* Backend: Laravel 13 (PHP >= 8.3)
+* Frontend: Blade + Vite
+* Database: MySQL
+* Tooling: Composer, npm
+## Setup e Installazione
+### Clona la repository
+```bash
+git clone https://github.com/nicola98loiodice/social_dashboard.git
+cd social_dashboard
+```
+### Installa le dipendenze backend
 ```bash
 composer install
 ```
-### 3. Configura il file `.env`
+### Configura l'ambiente
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
-### 4. Configura il database MySQL
-
-Crea un database MySQL (ad esempio feedflow) e aggiorna il file .env:
-
+### Configurazione database (MySQL)
+Crea un database MySQL (ad esempio `feedflow`) e aggiorna il file `.env`:
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=feedflow
 DB_USERNAME=root
-DB_PASSWORD=  
+DB_PASSWORD=
+```
+### Esegui le migrazioni
 
-Esegui migrazioni  
-```console
+```bash
 php artisan migrate
 ```
-### 5. Installa le dipendenze 
+### Installa le dipendenze frontend
+
 ```bash
 npm install
 ```
-### 6. Avvia il server di sviluppo
-In due terminali separati:
+### Avvio applicazione
+Apri due terminali:
+Backend Laravel:
 
-**Terminale 1 — Backend Laravel:**
 ```bash
 php artisan serve
 ```
+Frontend Vite:
 
-**Terminale 2 — Frontend Vite:**
 ```bash
 npm run dev
 ```
 
 ---
-
-### 7. Apri il browser
-http://localhost:8000  
-
+## Accesso
+```
+http://localhost:8000
+```
 ## Struttura del progetto
 
 ```
-├── app/            # Logica dell'applicazione (Controllers, Models, ecc.)
-├── bootstrap/      # File di bootstrap di Laravel
-├── config/         # File di configurazione
-├── database/       # Migration, factory e seeder
-├── lang/           # File di traduzione
-├── public/         # Entry point pubblico (index.php, asset)
-├── resources/      # Viste Blade, CSS, JavaScript 
-├── routes/         # Definizione delle rotte 
-├── storage/        # Log, cache, file caricati
-├── tests/          # Test automatici
-├── .env.example    # Template delle variabili d'ambiente
-├── artisan         # CLI di Laravel
-├── composer.json   # Dipendenze PHP
-├── package.json    # Dipendenze Node.js
-└── vite.config.js  # Configurazione Vite
+├── app/            Logica applicativa (Controllers, Models, ecc.)
+├── bootstrap/      Bootstrap di Laravel
+├── config/         Configurazioni
+├── database/       Migrazioni, factory, seeders
+├── public/         Entry point pubblico
+├── resources/      Blade, CSS, JavaScript
+├── routes/         Definizione rotte
+├── storage/        Log e file
+├── tests/          Test automatici
 ```
-
----
+## Possibili miglioramenti futuri
+* Integrazione con API social reali
+* Visualizzazioni avanzate (grafici e analytics)
+* Sistema di notifiche
+* Esportazione dati (CSV, PDF)
+* Gestione ruoli e permessi utenti
