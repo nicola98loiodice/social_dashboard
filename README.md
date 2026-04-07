@@ -7,6 +7,8 @@ Sistema:
 - **Composer**  
 - **Node.js**  
 - **npm**  
+- **MySql**  
+
 ## Installazione e avvio da VSCode
 
 ### 1. Clona la repository
@@ -20,11 +22,18 @@ composer install
 cp .env.example .env
 php artisan key:generate
 ```
-### 4. Crea il database e lancia le migrazioni
-```bash
-touch database/database.sqlite
-php artisan migrate
-```
+### 4. Configura il database MySQL
+
+Crea un database MySQL (ad esempio feedflow) e aggiorna il file .env:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=feedflow
+DB_USERNAME=root
+DB_PASSWORD=  
+
+Esegui migrazioni  
 ### 5. Installa le dipendenze 
 ```bash
 npm install
