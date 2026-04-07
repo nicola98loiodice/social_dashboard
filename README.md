@@ -34,6 +34,9 @@ DB_USERNAME=root
 DB_PASSWORD=  
 
 Esegui migrazioni  
+```console
+php artisan migrate
+```
 ### 5. Installa le dipendenze 
 ```bash
 npm install
