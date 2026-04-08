@@ -53,7 +53,7 @@
                     <div>
                         <p class="text-muted mb-0 small">{{ __('longest_post') }}</p>
                         <h3 class="fw-bold mb-0 count-up" data-target="{{ strlen($longestPost['title']) }}">0</h3>
-                        <span class="text-muted small">{{ __('characters') }} — {{ $longestPostUser['name'] }}</span>
+                        <span class="text-muted small">{{ __('characters') }} — {{ $longestPostUser['name']}}</span>
                     </div>
                 </div>
             </div>

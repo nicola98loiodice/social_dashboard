@@ -59,8 +59,23 @@ class PublicController extends Controller
         $comCount = $users->filter(fn($u) => str_ends_with($u['email'], '.com'))->count();
         $netCount = $users->filter(fn($u) => str_ends_with($u['email'], '.net'))->count();
 
-        $longestPost     = $posts->sortByDesc(fn($p) => strlen($p['title']))->first();
-        $longestPostUser = $users->firstWhere('id', $longestPost['userId']);
+        // $longestPost     = $posts->sortByDesc(fn($p) => strlen($p['title']))->first();
+        // $longestPostUser = $users->firstWhere('id', $longestPost['userId']);
+        // prendi solo i post degli utenti NON eliminati
+        $activeUserIds = $users->pluck('id');
+
+        $longestPost = $posts
+            ->whereIn('userId', $activeUserIds)
+            ->sortByDesc(fn($p) => strlen($p['title']))
+            ->first();
+
+        $longestPostUser = $longestPost
+            ? $users->firstWhere('id', $longestPost['userId'])
+            : null;
+
+        // fallback sicuri
+        $longestPost = $longestPost ?? ['title' => ''];
+        $longestPostUser = $longestPostUser ?? ['name' => 'N/A'];
 
         return view('components.dashboard', [
             'users'           => $users,

@@ -2,9 +2,7 @@
 FeedFlow è un'applicazione web sviluppata con Laravel che consente di gestire, analizzare e visualizzare dati provenienti da piattaforme social all'interno di una dashboard centralizzata.
 ## Features
 * Dashboard per la visualizzazione dei dati
-* Gestione dei contenuti social
-* Analisi delle performance
-* Sistema di autenticazione utenti
+* Analisi delle performance  
 * Architettura MVC basata su Laravel
 ## Tech Stack
 
